@@ -1,0 +1,44 @@
+{
+  "name": "Overdoc",
+  "version": "0.2.10",
+  "manifest_version": 2,
+  "description": "Links to docs over site blocks",
+  "homepage_url": "http://blog.ksimka.io",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "scripts": [
+      "src/bg/background.js"
+    ],
+    "persistent": false
+  },
+  "options_ui": {
+    "page": "src/options.html",
+    "chrome_style": true
+  },
+  "browser_action": {
+    "default_icon": "icons/icon19.png",
+    "default_title": "Toggle docs"
+  },
+  "permissions": [
+    "http://www.mamba.ru/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://www.mamba.ru/*"
+      ],
+      "js": [
+        "src/inject/jquery.min.js",
+        "src/inject/purplecoat.min.js"
+      ],
+      "css": [
+        "src/inject/main.css"
+      ]
+    }
+  ]
+}

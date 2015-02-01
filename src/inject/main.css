@@ -1,0 +1,14 @@
+.purplecoat-inner-text a {
+    color: #fff6bf;
+    background-color: #f91659;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+.purplecoat-inner-text a:hover {
+    color: #fab470;
+}
+
+.purplecoat-inner-text h3 {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
