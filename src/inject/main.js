@@ -3,6 +3,8 @@ var livedocSelector = '[data-purplecoat=' + livedocClass + ']';
 
 var $pcs = $(livedocSelector);
 if ($pcs.length == 0) {
+    var linksByTags = {};
+
     var markLivedoc = function (item) {
         var $e = $(item[0]);
         if ($e.length == 0) {
@@ -33,7 +35,26 @@ if ($pcs.length == 0) {
         $e[0].dataset.purplecoatLabel += html.join(' ');
     };
 
-    var settings = {
+    var applySettings = function(settings) {
+        settings.links.forEach(function(item) {
+            var link = [item[0], item[1]];
+            var tags = item[2];
+            tags.forEach(function(tag) {
+                if (typeof linksByTags[tag] === 'undefined') {
+                    linksByTags[tag] = [];
+                }
+                linksByTags[tag].push(link);
+            });
+        });
+
+        settings.blocks.forEach(markLivedoc);
+
+        $pcs = $(livedocSelector);
+    };
+
+    chrome.storage.sync.get({blocks: [], links: [], tags: []}, applySettings);
+
+    /*var settings = {
         blocks: [
             ['.b-reinformer-leader', 'Лидеры', ['leaders']],
             ['.b-photoline__container', 'Фотолинейка', ['photoline', 'hitlist', 'search']],
@@ -44,29 +65,16 @@ if ($pcs.length == 0) {
             ['.b-invite', 'Инвайтер', ['inviter']]
         ],
         links: [
-            [['http://google.com', 'Бэкенд'], ['photoline']],
-            [['http://ya.ru', 'Демон'], ['ratings']],
-            [['http://meduza.io', 'Региональные настройки'], ['search', 'leaders']],
-            [['http://mamba.ru', 'Общие сведения'], ['search', 'hitlist']]
+            ['http://google.com', 'Бэкенд', ['photoline']],
+            ['http://ya.ru', 'Демон', ['ratings']],
+            ['http://meduza.io', 'Региональные настройки', ['search', 'leaders']],
+            ['http://mamba.ru', 'Общие сведения', ['search', 'hitlist']]
         ],
         tags: ['photoline', 'ratings', 'search', 'leaders', 'travel', 'hitlist', 'newfaces', 'inviter']
     };
 
-    var linksByTags = {};
-    settings.links.forEach(function(item) {
-        var link = item[0];
-        var tags = item[1];
-        tags.forEach(function(tag) {
-            if (typeof linksByTags[tag] === 'undefined') {
-                linksByTags[tag] = [];
-            }
-            linksByTags[tag].push(link);
-        });
-    });
-
-    settings.blocks.forEach(markLivedoc);
-
-    $pcs = $(livedocSelector);
+    chrome.storage.sync.set(settings, function() { console.info(chrome.runtime.lastError); });
+    */
 }
 
 $pcs.purplecoat();

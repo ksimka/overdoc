@@ -1,6 +1,6 @@
 {
   "name": "Overdoc",
-  "version": "0.2.10",
+  "version": "0.3.1",
   "manifest_version": 2,
   "description": "Links to docs over site blocks",
   "homepage_url": "http://blog.ksimka.io",
@@ -25,7 +25,8 @@
     "default_title": "Toggle docs"
   },
   "permissions": [
-    "http://www.mamba.ru/*"
+    "http://www.mamba.ru/*",
+    "storage"
   ],
   "content_scripts": [
     {
