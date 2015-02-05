@@ -42,7 +42,13 @@ function saveOptions() {
 
 function restoreOptions() {
     // Use default value color = 'red' and likesColor = true.
-    chrome.storage.sync.get({blocks: [], links: [], tags: []}, function(settings) {
+    chrome.storage.sync.get(
+    {
+        blocks: [['#block .css-selector', 'Block title', ['tags', 'comma', 'separated']]],
+        links: [['http://docs.site/link', 'Link title', ['tags', 'again', 'comma', 'separated']]],
+        tags: ['allowed', 'tags', 'comma', 'separated']
+    },
+    function(settings) {
         var blocks = document.getElementById('blocks');
         var links = document.getElementById('links');
         var tags = document.getElementById('tags');
